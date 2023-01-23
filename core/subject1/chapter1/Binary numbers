@@ -1,0 +1,300 @@
+import random
+from operator import*
+ 
+
+def rand_key(p):
+   
+    
+    key1 = ""
+ 
+    
+    for i in range(p):
+         
+        
+        temp = str(random.randint(0, 1))
+ 
+        key1 += temp
+         
+    return(key1)
+
+
+        
+
+#2's comp code
+def findTwoscomplement(str):
+    n = len(str)
+ 
+    # Traverse the string to get first
+    # '1' from the last of string
+    i = n - 1
+    while(i >= 0):
+        if (str[i] == '1'):
+            break
+ 
+        i -= 1
+ 
+    # If there exists no '1' concatenate 1
+    # at the starting of string
+    if (i == -1):
+        return '1'+str
+ 
+    # Continue traversal after the
+    # position of first '1'
+    k = i - 1
+    while(k >= 0):
+         
+        # Just flip the values
+        if (str[k] == '1'):
+            str = list(str)
+            str[k] = '0'
+            str = ''.join(str)
+        else:
+            str = list(str)
+            str[k] = '1'
+            str = ''.join(str)
+ 
+        k -= 1
+ 
+    # return the modified string
+    return str
+def xor(a, b):
+    ans = ""
+    n=len(a) 
+    # Loop to iterate over the
+    # Binary Strings
+    for i in range(n):
+         
+        # If the Character matches
+        if (a[i] == b[i]):
+            ans += "0"
+        else:
+            ans += "1"
+    return ans
+def flip(st,n):
+    k=random.randint(0,n-1)
+    res=''
+    for i in range(n):
+        if i==k:
+            if st[i]=='1':
+                res+='0'
+            else:
+                res+='1'
+        else:
+            res+=st[i]
+    return res
+        
+
+def add(a,b,s1,s2):
+    
+    max_len = max(len(a), len(b))
+    a = a.zfill(max_len)
+    b = b.zfill(max_len)
+     
+    
+    result = ''
+     
+    
+    carry = 0
+     
+    
+    for i in range(max_len - 1, -1, -1):
+        r = carry
+        r += 1 if a[i] == '1' else 0
+        r += 1 if b[i] == '1' else 0
+        result = ('1' if r % 2 == 1 else '0') + result
+     
+        
+        carry = 0 if r < 2 else 1
+     
+    if s1==0 and s2==0:
+        if carry != 0:
+            result = '1' + result
+    elif s1==1 and s2==1:
+        result=findTwoscomplement(result)
+    else:
+        if carry==0:
+            result=findTwoscomplement(result)
+    return result        
+
+
+#option1 for addition
+
+def addop1(a,b,s1,s2):
+    max_len = max(len(a), len(b))
+    a = a.zfill(max_len)
+    b = b.zfill(max_len)
+     
+    
+    result = ''
+     
+    
+    carry = 0
+     
+    
+    for i in range(max_len - 1, -1, -1):
+        r = carry
+        r += 1 if a[i] == '1' else 0
+        r += 1 if b[i] == '1' else 0
+        result = ('1' if r % 2 == 1 else '0') + result
+        carry = 0 if r < 2 else 1
+    if s1^s2:
+        if carry!=0:
+            result=findTwoscomplement(result)
+        
+    return result
+
+
+
+
+
+ 
+
+
+    
+
+def sub(a,b,s1,s2):
+    b=findTwoscomplement(b)
+    max_len = max(len(a), len(b))
+    a = a.zfill(max_len)
+    b = b.zfill(max_len)
+     
+    
+    result = ''
+     
+    
+    carry = 0
+     
+    
+    for i in range(max_len - 1, -1, -1):
+        r = carry
+        r += 1 if a[i] == '1' else 0
+        r += 1 if b[i] == '1' else 0
+        result = ('1' if r % 2 == 1 else '0') + result
+     
+        
+        carry = 0 if r < 2 else 1
+   
+    if s1==1 and s2==0:
+        result=findTwoscomplement(result)
+    elif s1==0 and s2==1:
+        result=add(a,b,0,0)
+    else:
+         
+        if carry==0:
+            result=findTwoscomplement(result)
+    
+     
+    return result
+#subop1 is same as sugnedsubop3
+def subop1(a,b,s1,s2):
+    b=findTwoscomplement(b)
+    max_len = max(len(a), len(b))
+    a = a.zfill(max_len)
+    b = b.zfill(max_len)
+     
+    
+    result = ''
+     
+    
+    carry = 0
+     
+    
+    for i in range(max_len - 1, -1, -1):
+        r = carry
+        r += 1 if a[i] == '1' else 0
+        r += 1 if b[i] == '1' else 0
+        result = ('1' if r % 2 == 1 else '0') + result
+     
+        
+        carry = 0 if r < 2 else 1
+    if s1==0 and s2==1:
+        if carry==0:
+            result='1'+result
+    else:
+        if carry!=0 :
+            
+            
+            result='1'+result
+    return result
+def multp(a,b):
+    r=bin(mul(int(a,2),int(b,2)))
+    res=''
+    for i in range(2,len(r)):
+        res+=r[i]
+    return res
+def opts(options):
+    random.shuffle(options)
+    print("choose correct anser from the following")
+    for i in options:
+          print(i)
+     
+    
+    
+
+
+# Driver Code
+n = 4
+str1 = rand_key👎
+str2=rand_key👎
+print("first random binary string is: ", str1)
+print("second length random binary string is: ", str2)
+operation=random.randint(1,3)
+sign1=random.randint(0,1)
+sign2=random.randint(0,1)
+print(sign1)
+print(sign2)
+#operation=3
+if operation==1:
+    print("operation is addition")
+    res=add(str1,str2,sign1,sign2)
+    if sign1==0 and sign2==0:
+        
+        print("sum of two numbers is ",res)
+    elif sign1==1 and sign2==0:
+        print("first num is signed ",res)
+    elif sign1==0 and sign2==1:
+        print("second num is signed ",res)
+    else:
+        
+        print("both nums are signed ",res)
+    option1=addop1(str1,str2,sign1,sign2)
+    option2=flip(res,n)
+    fl=flip(res,len(res))
+    option3=xor(option2,fl)
+    list1=[option1,res,option2,option3]
+    opts(list1)
+if operation==2:
+    print("operation is subtraction")
+    res=sub(str1,str2,sign1,sign2)
+    
+    if sign1==0 and sign2==0:
+        
+        print("sum of two numbers is ",res)
+    elif sign1==1 and sign2==0:
+        
+        print("first num is signed ",res)
+    elif sign1==0 and sign2==1:
+        print("second num is signed ",res)
+    else:
+        
+        print("both nums are signed ",res)
+    option1=subop1(str1,str2,sign1,sign2)
+    option2=flip(res,n)
+    fl=flip(res,len(res))
+    option3=xor(option2,fl)
+    list1=[option1,res,option2,option3]
+    opts(list1)
+
+if operation==3:
+    print("operation is multiplication")
+    res=multp(str1,str2)
+    if(sign1^sign2):
+        print("one num is signed")
+        res=findTwoscomplement(res)
+    
+    option1=flip(res,len(res))
+    option2=xor(res,option1)
+    fl=flip(res,len(res))
+    option3=xor(option1,fl)
+    list1=[option1,option2,res,option3]
+    opts(list1)
